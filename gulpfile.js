@@ -27,7 +27,7 @@ function styles() {
         .pipe(browserSync.stream());
 }
 
-//* ImageMin
+//? ImageMin
 function image() {
     return src('app/images/*').pipe(imagemin()).pipe(dest('dist/images'));
 }
