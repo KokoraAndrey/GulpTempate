@@ -3,13 +3,22 @@
     "version": "1.0.0",
     "description": "new gulp website",
     "author": "Coder Folder",
+    "scripts": {
+        "lint": "gulp lint"
+    },
+    
     "devDependencies": {
+        "@babel/core": "^7.21.8",
+        "@babel/preset-env": "^7.21.5",
         "browser-sync": "^2.27.10",
         "del": "^6.0.0",
         "gulp": "^4.0.2",
         "gulp-autoprefixer": "^8.0.0",
+        "gulp-babel": "^8.0.0",
+        "gulp-concat": "^2.6.1",
         "gulp-cssbeautify": "^3.0.1",
         "gulp-cssnano": "^2.1.3",
+        "gulp-fonter": "^0.3.0",
         "gulp-imagemin": "^7.1.0",
         "gulp-notify": "^4.0.0",
         "gulp-plumber": "^1.2.1",
@@ -17,9 +26,19 @@
         "gulp-rigger": "^0.5.8",
         "gulp-sass": "^5.1.0",
         "gulp-strip-css-comments": "^2.0.0",
+        "gulp-stylelint": "^13.0.0",
+        "gulp-svg-sprite": "^2.0.3",
+        "gulp-svgmin": "^4.1.0",
+        "gulp-ttf2woff2": "^4.0.1",
         "gulp-uglify": "^3.0.2",
         "gulp-webp": "^4.0.1",
         "panini": "^1.7.2",
-        "sass": "^1.56.1"
+        "sass": "^1.56.1",
+        "stylelint": "^15.6.1",
+        "stylelint-config-recommended-scss": "^11.0.0",
+        "stylelint-scss": "^5.0.0"
+    },
+    "dependencies": {
+        "normalize.css": "^8.0.1"
     }
 }

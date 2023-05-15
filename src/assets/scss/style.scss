@@ -1,12 +1,11 @@
-/* Default Styles */
-*,
-*::after,
-*::before {
-    margin: 0;
-    box-sizing: border-box;
-}
+//* Libs
+// @import 'helpers/libs';
 
+//* General
+@import 'general/fonts';
+@import 'general/variables';
+@import 'general/extends';
+@import 'general/mixins';
+@import 'general/global';
 
-body {
-    color: chasiochasiochas;
-}
+//* Components
