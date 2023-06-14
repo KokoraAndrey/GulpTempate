@@ -36,7 +36,6 @@ const path = {
         js: distPath + 'assets/js/',
         vendors: distPath + 'assets/js/vendors/',
         images: distPath + 'assets/images/',
-        sprite: distPath + 'assets/images/sprite',
         fonts: distPath + 'assets/fonts/',
     },
 
@@ -47,7 +46,6 @@ const path = {
         images:
             srcPath +
             'assets/images/**/*.{jpg,png,svg,gif,ico,webp,webmanifest,xml,json}',
-        sprite: srcPath + 'assets/images/sprite/*.svg',
         fonts: srcPath + 'assets/fonts/**/*.{eot,woff,woff2,ttf,svg}',
         scss: './src/assets/scss/**/*.scss',
     },
@@ -59,7 +57,7 @@ const path = {
         images:
             srcPath +
             'assets/images/**/*.{jpg,png,svg,gif,ico,webp,webmanifest,xml,json}',
-        sprite: srcPath + 'assets/images/sprite/*.svg',
+        iconSprite: srcPath + 'assets/images/sprite/*.svg',
         fonts: srcPath + 'assets/fonts/**/*.{eot,woff,woff2,ttf,svg}',
     },
     clean: './' + distPath,
@@ -125,21 +123,6 @@ function css() {
         .pipe(browserSync.reload({ stream: true }));
 }
 
-//* Stylelint
-function testScssLint() {
-    return src(path.src.scss).pipe(
-        stylelint({
-            reporters: [
-                {
-                    failAfterError: true,
-                    formatter: 'string',
-                    console: true,
-                },
-            ],
-        })
-    );
-}
-
 //* JavaScript
 function js() {
     return src(path.src.js, { base: srcPath + 'assets/js/' })
@@ -176,7 +159,6 @@ function images() {
     return src(
         path.src.images,
         { base: srcPath + 'assets/images/' },
-        !path.src.sprite
     )
         .pipe(
             imagemin([
@@ -192,20 +174,6 @@ function images() {
         .pipe(browserSync.reload({ stream: true }));
 }
 
-function sprite() {
-    return src(path.src.sprite, { base: srcPath + 'assets/images/sprite/' })
-        .pipe(
-            svgSprite({
-                mode: {
-                    stack: {
-                        sprite: 'sprite.svg',
-                        example: true,
-                    },
-                },
-            })
-        )
-        .pipe(dest(path.build.sprite));
-}
 
 function webpImages() {
     return src(path.src.images, { base: srcPath + 'assets/images/' })
@@ -235,7 +203,6 @@ function watchFiles() {
     gulp.watch([path.watch.css], css);
     gulp.watch([path.watch.js], js);
     gulp.watch([path.watch.images], images);
-    gulp.watch([path.watch.sprite], sprite);
     gulp.watch([path.watch.fonts], fonts);
 }
 
@@ -243,7 +210,7 @@ const build = gulp.series(
     clean,
 
     //* Если есть сторонние библиотеки, добавить vendors
-    gulp.parallel(html, css, js, images, sprite, webpImages, fonts)
+    gulp.parallel(html, css, js, images, webpImages, fonts)
 );
 const watch = gulp.parallel(build, watchFiles, serve);
 
@@ -256,11 +223,9 @@ const watch = gulp.parallel(build, watchFiles, serve);
 
 exports.html = html;
 exports.css = css;
-exports.lint = testScssLint;
 exports.js = js;
 // exports.vendors = vendors;
 exports.images = images;
-exports.sprite = sprite;
 exports.webpImages = webpImages;
 exports.fonts = fonts;
 exports.clean = clean;
